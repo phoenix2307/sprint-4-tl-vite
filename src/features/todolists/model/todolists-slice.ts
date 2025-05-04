@@ -95,7 +95,7 @@ export const deleteTodolistTC = createAsyncThunk(
   async (id: string, thunkAPI) => {
     try {
       await todolistsApi.deleteTodolist(id)
-
+      // pass id like object
       return { id }
     } catch (error) {
       return thunkAPI.rejectWithValue(error)

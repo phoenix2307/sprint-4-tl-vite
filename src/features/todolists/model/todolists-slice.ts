@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 import { Todolist } from "@/features/todolists/api/todolistsApi.types"
 import { todolistsApi } from "@/features/todolists/api/todolistsApi"
 import { createAppSlice } from "@/common/utils"
+import { setAppStatusAC } from "@/app/app-slice"
 
 export type TodolistType = {
   id: string
@@ -22,12 +23,15 @@ export const todolistSlice = createAppSlice({
   },
   reducers: (create) => ({
     fetchTodolistsTC: create.asyncThunk(
-      async (_, thunkApi) => {
+      async (_, thunkAPI) => {
         try {
+          thunkAPI.dispatch(setAppStatusAC({ status: "loading" }))
           const res = await todolistsApi.getTodolists()
+          thunkAPI.dispatch(setAppStatusAC({ status: "succeeded" }))
           return { todolists: res.data }
         } catch (error) {
-          return thunkApi.rejectWithValue(error)
+          thunkAPI.dispatch(setAppStatusAC({ status: "failed" }))
+          return thunkAPI.rejectWithValue(error)
         }
       },
       {

@@ -1,13 +1,15 @@
+import type { RequestStatus } from "@/common/types"
 import { createSlice } from "@reduxjs/toolkit"
-import { RequestStatus } from "@/common/types"
-
-export type ThemeMode = "dark" | "light"
 
 export const appSlice = createSlice({
   name: "app",
   initialState: {
     themeMode: "dark" as ThemeMode,
     status: "idle" as RequestStatus,
+  },
+  selectors: {
+    selectThemeMode: (state) => state.themeMode,
+    selectAppStatus: (state) => state.status,
   },
   reducers: (create) => ({
     changeThemeModeAC: create.reducer<{ themeMode: ThemeMode }>((state, action) => {
@@ -17,12 +19,10 @@ export const appSlice = createSlice({
       state.status = action.payload.status
     }),
   }),
-  selectors: {
-    selectThemeMode: (state) => state.themeMode,
-    selectStatus: (state) => state.status,
-  },
 })
 
-export const appReducer = appSlice.reducer
+export const { selectThemeMode, selectAppStatus } = appSlice.selectors
 export const { changeThemeModeAC, setAppStatusAC } = appSlice.actions
-export const { selectThemeMode, selectStatus } = appSlice.selectors
+export const appReducer = appSlice.reducer
+
+export type ThemeMode = "dark" | "light"

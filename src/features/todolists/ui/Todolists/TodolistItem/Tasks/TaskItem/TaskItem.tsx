@@ -1,14 +1,14 @@
 import { EditableSpan } from "@/common/components/EditableSpan/EditableSpan"
+import { TaskStatus } from "@/common/enums"
 import { useAppDispatch } from "@/common/hooks"
-import { updateTaskTC, deleteTaskTC } from "@/features/todolists/model/tasks-slice"
+import type { DomainTask } from "@/features/todolists/api/tasksApi.types"
+import { deleteTaskTC, updateTaskTC } from "@/features/todolists/model/tasks-slice"
 import DeleteIcon from "@mui/icons-material/Delete"
 import Checkbox from "@mui/material/Checkbox"
 import IconButton from "@mui/material/IconButton"
 import ListItem from "@mui/material/ListItem"
 import type { ChangeEvent } from "react"
 import { getListItemSx } from "./TaskItem.styles"
-import { DomainTask } from "@/features/todolists/api/tasksApi.types"
-import { TaskStatus } from "@/common/enums"
 
 type Props = {
   task: DomainTask
@@ -36,6 +36,7 @@ export const TaskItem = ({ task, todolistId }: Props) => {
   const changeTaskTitle = (title: string) => {
     dispatch(updateTaskTC({ todolistId, taskId: task.id, domainModel: { title } }))
   }
+
   const isTaskCompleted = task.status === TaskStatus.Completed
 
   return (

@@ -35,13 +35,11 @@ test("correct todolist should be deleted", () => {
 
 test("correct todolist should be created", () => {
   const title = "New todolist"
-  const endState = todolistsReducer(
-    startState,
-    createTodolistTC.fulfilled({ id: nanoid(), title, addedDate: "", order: 0 }, "requestId", title),
-  )
+  const todolist = { id: "todolistId3", title, addedDate: "", order: 0 }
+  const endState = todolistsReducer(startState, createTodolistTC.fulfilled({ todolist }, "requestId", title))
 
   expect(endState.length).toBe(3)
-  expect(endState[2].title).toBe(title)
+  expect(endState[0].title).toBe(title)
 })
 
 test("correct todolist should change its title", () => {

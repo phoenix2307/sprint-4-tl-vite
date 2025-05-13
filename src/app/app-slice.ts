@@ -8,8 +8,8 @@ export const appSlice = createSlice({
   initialState: {
     themeMode: "dark" as ThemeMode,
     status: "idle" as RequestStatus,
-    // error: null as string | null,
-    error: "Test error message" as string | null,
+    error: null as string | null,
+    // error: "Test error message" as string | null,
   },
   selectors: {
     selectThemeMode: (state) => state.themeMode,

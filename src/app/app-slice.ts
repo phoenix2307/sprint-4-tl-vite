@@ -1,15 +1,12 @@
 import type { RequestStatus } from "@/common/types"
 import { createSlice } from "@reduxjs/toolkit"
 
-export type ErrorType = string | null
-
 export const appSlice = createSlice({
   name: "app",
   initialState: {
     themeMode: "dark" as ThemeMode,
     status: "idle" as RequestStatus,
     error: null as string | null,
-    // error: "Test error message" as string | null,
   },
   selectors: {
     selectThemeMode: (state) => state.themeMode,
@@ -23,7 +20,7 @@ export const appSlice = createSlice({
     setAppStatusAC: create.reducer<{ status: RequestStatus }>((state, action) => {
       state.status = action.payload.status
     }),
-    setAppErrorAC: create.reducer<{ error: ErrorType }>((state, action) => {
+    setAppErrorAC: create.reducer<{ error: string | null }>((state, action) => {
       state.error = action.payload.error
     }),
   }),

@@ -10,6 +10,7 @@ import IconButton from "@mui/material/IconButton"
 import Switch from "@mui/material/Switch"
 import Toolbar from "@mui/material/Toolbar"
 import LinearProgress from "@mui/material/LinearProgress"
+import { ButtonLink } from "@/common/components"
 
 export const Header = () => {
   const themeMode = useAppSelector(selectThemeMode)
@@ -31,6 +32,22 @@ export const Header = () => {
             <MenuIcon />
           </IconButton>
           <div>
+            <ButtonLink
+              href={"/login"}
+              buttonProps={{
+                variant: "contained",
+              }}
+            >
+              Login
+            </ButtonLink>
+            <ButtonLink
+              href={"*"}
+              buttonProps={{
+                variant: "contained",
+              }}
+            >
+              404
+            </ButtonLink>
             <NavButton>Sign in</NavButton>
             <NavButton>Sign up</NavButton>
             <NavButton background={theme.palette.primary.dark}>Faq</NavButton>

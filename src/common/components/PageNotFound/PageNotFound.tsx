@@ -1,7 +1,6 @@
 import styles from "./PageNotFound.module.css"
+import { ButtonLink } from "@/common/components"
 //
-import { Link, LinkProps } from "@mui/material"
-import { Button, ButtonProps } from "@mui/material"
 
 export const PageNotFound = () => {
   return (
@@ -17,25 +16,5 @@ export const PageNotFound = () => {
         Go to HomePage
       </ButtonLink>
     </>
-  )
-}
-
-type ButtonLinkProps = LinkProps & {
-  buttonProps?: ButtonProps
-}
-
-const ButtonLink: React.FC<ButtonLinkProps> = ({ children, buttonProps = {}, ...linkProps }) => {
-  return (
-    <Link
-      {...linkProps}
-      underline={"none"}
-      sx={{
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Button {...buttonProps}>{children}</Button>
-    </Link>
   )
 }

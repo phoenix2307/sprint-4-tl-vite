@@ -6,7 +6,7 @@ import { FormControl, FormControlLabel, FormGroup, FormLabel } from "@mui/materi
 import TextField from "@mui/material/TextField"
 import Checkbox from "@mui/material/Checkbox"
 import Button from "@mui/material/Button"
-import { SubmitHandler, useForm } from "react-hook-form"
+import { Controller, SubmitHandler, useForm } from "react-hook-form"
 import styles from "./Login.module.css"
 
 export const Login = () => {
@@ -76,7 +76,19 @@ export const Login = () => {
             />
             {errors.email && <span className={styles.errorMessage}>{errors.email.message}</span>}
             <TextField type={"password"} label={"Password"} margin={"normal"} {...register("password")} />
-            <FormControlLabel control={<Checkbox {...register("rememberMe")} />} label={"Remember me"} />
+            <FormControlLabel
+              label={"Remember me"}
+              control={
+                <Controller
+                  name={"rememberMe"}
+                  control={control}
+                  // render={({ field: { value, ...rest } }) => <Checkbox {...rest} checked={value}/>}
+                  render={({ field: { value, onChange } }) => (
+                    <Checkbox onChange={(e) => onChange(e.target.checked)} checked={value} />
+                  )}
+                />
+              }
+            />
             <Button type={"submit"} variant={"contained"} color={"primary"}>
               Login
             </Button>

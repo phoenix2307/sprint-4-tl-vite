@@ -8,6 +8,8 @@ import Checkbox from "@mui/material/Checkbox"
 import Button from "@mui/material/Button"
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
 import styles from "./Login.module.css"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Inputs, loginSchema } from "@/features/auth/lib/schemas"
 
 export const Login = () => {
   const themeMode = useAppSelector(selectThemeMode)
@@ -20,17 +22,14 @@ export const Login = () => {
     control,
     formState: { errors },
   } = useForm<Inputs>({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
       rememberMe: false,
     },
   })
-  type Inputs = {
-    email: string
-    password: string
-    rememberMe: boolean
-  }
+
   //
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data)
@@ -62,18 +61,7 @@ export const Login = () => {
             </p>
           </FormLabel>
           <FormGroup>
-            <TextField
-              label={"Email"}
-              margin={"normal"}
-              error={!!errors.email}
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                  message: "Incorrect email address",
-                },
-              })}
-            />
+            <TextField label={"Email 1"} margin={"normal"} error={!!errors.email} {...register("email")} />
             {errors.email && <span className={styles.errorMessage}>{errors.email.message}</span>}
             <TextField type={"password"} label={"Password"} margin={"normal"} {...register("password")} />
             <FormControlLabel
@@ -82,7 +70,6 @@ export const Login = () => {
                 <Controller
                   name={"rememberMe"}
                   control={control}
-                  // render={({ field: { value, ...rest } }) => <Checkbox {...rest} checked={value}/>}
                   render={({ field: { value, onChange } }) => (
                     <Checkbox onChange={(e) => onChange(e.target.checked)} checked={value} />
                   )}
